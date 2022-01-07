@@ -1,7 +1,7 @@
 (ns guestbook
   (:require [cheshire.core :as cheshire]
-            [clojure.string :as str]
-            [hiccup2.core :as hiccup]))
+            [hiccup2.core :as hiccup]
+            [clojure.string :as str]))
 
 (require '[babashka.pods :as pods])
 (pods/load-pod "./pod-babashka-postgresql")
@@ -53,7 +53,7 @@
                    (catch Exception e
                      (prn e))))))))
 
-(def entries (sql/execute! db ["select * from guestbook order by _created desc limit 10"]))
+(defn entries [] (sql/execute! db ["select * from guestbook order by _created desc limit 10"]))
 
 (defn render-messages []
   [:table.table
@@ -62,7 +62,7 @@
      [:th "Name"]
      [:th "Greeting"]]]
    [:tbody
-    (for [{:guestbook/keys [name message]} entries]
+    (for [{:guestbook/keys [name message]} (entries)]
       [:tr
        [:td name]
        [:td message]])]])
