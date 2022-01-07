@@ -1,7 +1,7 @@
 (ns guestbook
   (:require [cheshire.core :as cheshire]
-            [hiccup2.core :as hiccup]
-            [clojure.string :as str]))
+            [clojure.string :as str]
+            [hiccup2.core :as hiccup]))
 
 (require '[babashka.pods :as pods])
 (pods/load-pod "./pod-babashka-postgresql")
